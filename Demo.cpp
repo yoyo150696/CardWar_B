@@ -20,10 +20,13 @@ int main() {
   // Create two players with their names 
    Player p1("Alice");
    Player p2("Bob");
-
-   Game game(p1,p2); 
+   Game game(p1,p2);
+   
+   cout << p1.pdeck.size() << " ";
    for (int i=0;i<5;i++) {
     game.playTurn();
+    cout <<"p1 " << p1.cardesTaken()<< " ";
+    cout <<"p2 " << p2.cardesTaken()<< " ";
    }
    game.printLastTurn(); // print the last turn stats. For example:
                                                     // Alice played Queen of Hearts Bob played 5 of Spades. Alice wins.
