@@ -7,7 +7,7 @@ class Card{
     Suit suit;
     Rank rank;
     public:
-        Card(Suit s,Rank r);
+        Card(Suit suit,Rank rank);
         int val();
         std::string to_string();
     };

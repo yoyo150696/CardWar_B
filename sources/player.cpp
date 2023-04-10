@@ -4,6 +4,7 @@ namespace ariel{
         name = st;
         size = 0;
         card_taken = 0;
+        wins = 0;
     }
     int Player::cardesTaken(){
         return card_taken;

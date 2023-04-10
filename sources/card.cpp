@@ -1,8 +1,8 @@
 #include "card.hpp"
 namespace ariel{
-    Card::Card(Suit s,Rank r){
-        suit = s;
-        rank = r;
+    Card::Card(Suit suit,Rank rank){
+        this->suit = suit;
+        this->rank = rank;
     }
     int Card::val(){
         int v = rank;

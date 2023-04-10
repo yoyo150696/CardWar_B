@@ -9,9 +9,12 @@ namespace ariel{
             void init_deck();
             void deal();
             std::string lt;
-        public:
+            std::string log;
+            double draws;
             Player &p1;
             Player &p2;
+        public:
+            
             Game(Player &first,Player &second);
             void turn(int cards_sum);
             void playTurn();

@@ -7,6 +7,7 @@ namespace ariel{
         public:
             std::string name;
             int size;
+            double wins;
             int card_taken;
             std::vector<Card> pdeck;
             Player(std::string player_name);
