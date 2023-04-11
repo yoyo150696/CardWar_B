@@ -11,6 +11,7 @@ namespace ariel{
             std::string lt;
             std::string log;
             double draws;
+            int num_turn;
             Player &p1;
             Player &p2;
         public:

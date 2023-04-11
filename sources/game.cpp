@@ -7,17 +7,14 @@ namespace ariel{
         
         init_deck();
         deal();
-        p1 = first;
-        p2 = second;
         draws = 0;
+        num_turn = 0;
         p1.size = 26;
         p2.size = 26;
-        if (first.name == second.name){
+        if (first.name == second.name)
             this->p1.size = -1;
-            this->p2.size = -1;
-        }
-        
     }
+
     void Game::init_deck(){
         for (int rank = TWO; rank <= ACE; rank++) {
             for (int suit = HEARTS; suit <= SPADES; suit++) {
@@ -29,8 +26,7 @@ namespace ariel{
         std::shuffle(deck.begin(), deck.end(), g);
     }
 
-    void Game::deal(){
-        
+    void Game::deal(){    
         for (int i = 0; i < 26; i++) {
             p1.pdeck.push_back(deck.back());
             deck.pop_back();
@@ -47,6 +43,7 @@ namespace ariel{
         
     }
     void Game::turn(int cards_sum){
+        num_turn++;
         std::string st = (" " + p1.name + " played " + p1.pdeck.back().to_string() + " " + p2.name +
          " played " + p2.pdeck.back().to_string() + ".");
         lt += st;
@@ -59,7 +56,9 @@ namespace ariel{
                 p1.card_taken += (cards_sum + 2);
                 p1.wins++;} 
             p1.pdeck.pop_back();
-            p2.pdeck.pop_back();}
+            p2.pdeck.pop_back();
+            p1.size--;
+            p2.size--;}
         else if (p1.pdeck.back().val() < p2.pdeck.back().val()){
             if(p2.pdeck.back().val()== ACE && p1.pdeck.back().val()){
                 p1.card_taken += (cards_sum + 2);
@@ -69,26 +68,28 @@ namespace ariel{
                 p2.wins++;}
             p1.pdeck.pop_back();
             p2.pdeck.pop_back();
-        }
-        else
-        {
+            p1.size--;
+            p2.size--;}
+        else{
+            p1.pdeck.pop_back();
+            p2.pdeck.pop_back();
+            p1.size--;
+            p2.size--;
             lt += " Draw.";
             draws++;
-            if(p1.pdeck.size() > 1)
-            {
-                p1.size--;
-                p2.size--;
+            if(p1.size > 1){
                 p1.pdeck.pop_back();
                 p2.pdeck.pop_back();
-                turn(cards_sum + 2);
-            }
+                p1.size--;
+                p2.size--;
+                turn(cards_sum + 4);}
             else{
                 p1.card_taken += ((cards_sum + 2)/2);
                 p2.card_taken += ((cards_sum + 2)/2);
             }
         }
-
     }
+
     void Game::playTurn(){
         if(p1.size == -1)
             throw ( "both are the smae player" );
@@ -96,24 +97,24 @@ namespace ariel{
             throw("Game is over!");
         else{    
             lt = "";
-            p1.size--;
-            p2.size--;
             turn(0);}
-        
     }
+
     void Game::printLastTurn(){
         std::cout << lt;
     }
+
     void Game::printLog(){
         std::cout << log;
     }
+
     void Game::printStats(){
-        double fwr = (p1.wins/26*100);
-        double swr = (p2.wins/26*100);
-        double dr = (draws/26*100);
+        double fwr = (p1.wins/num_turn*100);
+        double swr = (p2.wins/num_turn*100);
+        double dr = (draws/num_turn*100);
         std::cout << p1.name << " stats: win rate - " << fwr << "% cards won - "<< p1.card_taken<< std::endl;
         std::cout << p2.name << " stats: win rate - " << swr << "% cards won - "<< p2.card_taken<< std::endl;
-        std::cout << "draws rate - " << dr << " draws num - " << draws << std::endl;
+        std::cout << "draws rate - " << dr << "% draws num - " << draws << std::endl;
     }
 
     void Game::printWiner(){

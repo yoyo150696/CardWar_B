@@ -13,8 +13,6 @@ namespace ariel{
             Player(std::string player_name);
             Player();
             int stacksize();
-
             int cardesTaken();
-
     };
 }
